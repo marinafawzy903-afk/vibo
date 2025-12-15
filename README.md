@@ -1,0 +1,24 @@
+name: Android APK
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: stable
+
+      - run: flutter pub get
+      - run: flutter build apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Vibo-APK
+          path: build/app/outputs/flutter-apk/app-release.apk
